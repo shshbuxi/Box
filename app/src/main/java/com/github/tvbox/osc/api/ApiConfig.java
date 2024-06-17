@@ -131,7 +131,12 @@ public class ApiConfig {
 
     public void loadConfig(boolean useCache, LoadConfigCallback callback, Activity activity) {
         // Embedded Source : Update in Strings.xml if required
-        String apiUrl = Hawk.get(HawkConfig.API_URL, HomeActivity.getRes().getString(R.string.app_source));
+        String appSource = HomeActivity.getRes().getString(R.string.app_source);
+         if (appSource.isEmpty()) {
+        	appSource = "http://tv.136188.xyz/17.json";
+        }
+        String apiUrl = Hawk.get(HawkConfig.API_URL, appSource);
+        // String apiUrl = Hawk.get(HawkConfig.API_URL, HomeActivity.getRes().getString(R.string.app_source));
         if (apiUrl.isEmpty()) {
             callback.error("源地址为空");
             return;
